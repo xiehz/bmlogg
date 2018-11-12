@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_login"
+    app:startDestination="@id/loginActivity2Fragment">
+
+    <fragment
+        android:id="@+id/loginActivity2Fragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ui.loginactivity2.LoginActivity2Fragment"
+        android:label="login_activity2_fragment"
+        tools:layout="@layout/login_activity2_fragment" >
+        <action
+            android:id="@+id/action_loginActivity2Fragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.szbm.wh.x.bmlogg.ui.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+</navigation>

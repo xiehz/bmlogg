@@ -1,12 +1,14 @@
 package com.szbm.wh.x.bmlogg.di
 
 import android.app.Application
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.szbm.wh.x.bmlogg.BmloggSharedPreference
 import com.szbm.wh.x.bmlogg.api.BmloggService
 import com.szbm.wh.x.bmlogg.db.BmLoggDb
 import com.szbm.wh.x.bmlogg.db.BH_loggerDao
 import com.szbm.wh.x.bmlogg.util.LiveDataCallAdapterFactory
+import com.szbm.wh.x.bmlogg.vo.BH_Logger
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -34,6 +36,12 @@ class BmloggModule(val bmlogg_db:String = "bmlogg.db"){
                 .addCallAdapterFactory(LiveDataCallAdapterFactory())
                 .build()
                 .create(BmloggService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providerLogger(sharedPreference: BmloggSharedPreference): BH_Logger {
+         return sharedPreference.readLogin()
     }
 
     @Singleton

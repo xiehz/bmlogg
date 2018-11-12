@@ -88,15 +88,15 @@ public class LoginRepository {
         @Override
         protected LiveData<BH_Logger> loadFromDb() {
             return Transformations.switchMap(
-                    bh_loggerDao.findByTelPass(logger.getNumber(),logger.getTel(),logger.getPass()),
+                    bh_loggerDao.findByTelPass(logger.getTel(),logger.getPass()),
                     dao->dao==null?AbsentLiveData.Companion.create():
-                            bh_loggerDao.findByTelPass(logger.getNumber(),logger.getTel(),logger.getPass()));
+                            bh_loggerDao.findByTelPass(logger.getTel(),logger.getPass()));
         }
 
         @NotNull
         @Override
         protected LiveData<ApiResponse<BH_Logger>> createCall() {
-            return bmloggService.getLogger(logger.getTel());
+            return bmloggService.getLogger(logger.getTel(),logger.getPass());
         }
     }
 }

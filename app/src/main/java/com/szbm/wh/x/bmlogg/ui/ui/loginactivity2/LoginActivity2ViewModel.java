@@ -20,12 +20,70 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 public class LoginActivity2ViewModel extends ObservableViewModel {
+    private String tel;
+    private String pass;
+    @Bindable
+    public String getTel(){
+        return tel;
+    }
+
+    public void setTel(String tel){
+        this.tel = tel;
+        notifyChange();
+    }
+
+    @Bindable
+    public String getPass(){
+        return this.pass;
+    }
+
+    public void setPass(String pass){
+        this.pass = pass;
+        notifyChange();
+    }
+
+    @Inject
+    BH_Logger bh_logger;
     @Inject
     LoginRepository loginRepository;
     @Inject
     BmloggSharedPreference bmloggSharedPreference;
 
-    private final MutableLiveData<BH_Logger> bhLoggerMutableLiveData= new MutableLiveData<>();
+
+    @Inject
+    public LoginActivity2ViewModel(){
+    }
+
+    public void login(){
+        if(validString(this.tel) && validString(this.pass))
+            bhLoggerMutableLiveData.setValue(new BH_Logger(-1,this.tel,this.pass));
+        else{
+            bhLoggerMutableLiveData.setValue(null);
+        }
+    }
+    private boolean validString(String string){
+        return string !=null && !string.isEmpty() ;
+    }
+
+
+    public void initialize(){
+        if(bh_logger != null || bh_logger.getNumber() != -1){
+            setTel(bh_logger.getTel());
+            setPass(bh_logger.getPass());
+        }
+        else{
+
+        }
+    }
+
+    public void save(BH_Logger bh_logger){
+        bmloggSharedPreference.writeLogin(bh_logger);
+        bh_logger.setNumber(bh_logger.getNumber());
+        bh_logger.setTel(bh_logger.getTel());
+        bh_logger.setPass(bh_logger.getPass());
+    }
+
+    private final MutableLiveData<BH_Logger> bhLoggerMutableLiveData = new MutableLiveData<>();
     private final LiveData<Resource<BH_Logger>> results = Transformations.switchMap(
             bhLoggerMutableLiveData,
             logger->{
@@ -37,65 +95,7 @@ public class LoginActivity2ViewModel extends ObservableViewModel {
                 }
             });
 
-    private int number;
-    private String tel;
-    private String pass;
-
-    @Inject
-    public LoginActivity2ViewModel(){
-    }
-
-    public MutableLiveData<BH_Logger> getBhLoggerMutableLiveData(){
-        return bhLoggerMutableLiveData ;
-    }
-
     public LiveData<Resource<BH_Logger>> getResults(){
         return this.results;
-    }
-    @Bindable
-    public String getTel(){
-        return tel;
-    }
-
-    public void setTel(String tel){
-        this.tel = tel;
-    }
-
-    @Bindable
-    public String getPass(){
-        return this.pass;
-    }
-
-    public void setPass(String pass){
-        this.pass = pass;
-    }
-
-    public void login(){
-        if(validString(this.tel) && validString(this.pass))
-            getBhLoggerMutableLiveData().setValue(new BH_Logger(this.number,this.tel,this.pass));
-        else{
-            getBhLoggerMutableLiveData().setValue(null);
-        }
-    }
-    private boolean validString(String string){
-        return string !=null && !string.isEmpty() ;
-    }
-
-
-    public void initialize(){
-        BH_Logger bh_logger = bmloggSharedPreference.readLogin();
-        if(bh_logger != null){
-            setTel(bh_logger.getTel());
-            setPass(bh_logger.getPass());
-            this.number = bh_logger.getNumber();
-        }
-        else{
-            setTel("11");
-            setPass("123432");
-        }
-    }
-
-    public void save(BH_Logger bh_logger){
-        bmloggSharedPreference.writeLogin(bh_logger);
     }
 }

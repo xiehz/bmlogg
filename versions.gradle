@@ -158,6 +158,8 @@ navigation.fragment = "android.arch.navigation:navigation-fragment:$versions.nav
 navigation.fragment_ktx = "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
 navigation.safe_args_plugin = "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
 navigation.testing_ktx = "android.arch.navigation:navigation-testing-ktx:$versions.navigation"
+navigation.fragment_ui_ktx = "android.arch.navigation:navigation-ui-ktx:$versions.navigation"
+
 deps.navigation = navigation
 
 ext.deps = deps

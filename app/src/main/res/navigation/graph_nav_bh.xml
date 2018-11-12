@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph_nav_bh"
+    app:startDestination="@id/bhBasicFragment">
+
+    <fragment
+        android:id="@+id/bhBeginFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ui.bh.BhBeginFragment"
+        android:label="bh_begin_fragment"
+        tools:layout="@layout/bh_begin_fragment" />
+    <fragment
+        android:id="@+id/rockSoilFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ui.bh.RockSoilFragment"
+        android:label="rock_soil_fragment"
+        tools:layout="@layout/rock_soil_fragment" />
+    <fragment
+        android:id="@+id/sampleFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ui.bh.SampleFragment"
+        android:label="sample_fragment"
+        tools:layout="@layout/sample_fragment" />
+    <fragment
+        android:id="@+id/sptFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ui.bh.SptFragment"
+        android:label="spt_fragment"
+        tools:layout="@layout/spt_fragment" />
+    <fragment
+        android:id="@+id/bhEndFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ui.bh.BhEndFragment"
+        android:label="bh_end_fragment"
+        tools:layout="@layout/bh_end_fragment" />
+    <fragment
+        android:id="@+id/bhBasicFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ui.bh.BhBasicFragment"
+        android:label="bh_basic_fragment"
+        tools:layout="@layout/bh_basic_fragment" />
+</navigation>

@@ -5,33 +5,38 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@id/projectFragment"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="项目" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@id/mainFragment"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="编录" />
+        <item
+            android:id="@id/statisticFragment"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="统计" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
+            android:id="@id/toolsFragment"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="工具" />
+        <item
+            android:id="@id/mapFragment"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="地图" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="">
         <menu>
+
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
+                android:id="@id/aboutFragment"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="关于" />
+            <item
+                android:id="@id/shareFragment"
+                android:icon="@drawable/ic_menu_share"
+                android:title="分享" />
         </menu>
     </item>
 

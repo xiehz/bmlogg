@@ -31,6 +31,6 @@ interface BH_loggerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(users:BH_Logger)
 
-    @Query("SELECT * FROM BH_Logger WHERE tel = :tel and pass = :pass and number = :number")
-    fun findByTelPass(number:Int,tel:String,pass:String): LiveData<BH_Logger>
+    @Query("SELECT * FROM BH_Logger WHERE tel = :tel and pass = :pass ")
+    fun findByTelPass(tel:String,pass:String): LiveData<BH_Logger>
 }

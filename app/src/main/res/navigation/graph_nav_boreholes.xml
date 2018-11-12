@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph_nav_boreholes"
+    app:startDestination="@id/boreholesFragment">
+
+    <fragment
+        android:id="@+id/boreholesFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ui.boreholes.BoreholesFragment"
+        android:label="boreholes_fragment"
+        tools:layout="@layout/boreholes_fragment" >
+        <action
+            android:id="@+id/action_boreholesFragment_to_bhActivity"
+            app:destination="@id/bhActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <activity
+        android:id="@+id/bhActivity"
+        android:name="com.szbm.wh.x.bmlogg.ui.BhActivity"
+        android:label="bh_activity"
+        tools:layout="@layout/bh_activity" />
+</navigation>

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.os.IBinder;
 import android.view.LayoutInflater;
@@ -85,6 +86,9 @@ public class LoginActivity2Fragment extends Fragment implements Injectable {
                 if(observer.getStatus() == Status.SUCCESS
                         && observer.getData() != null){
                     mViewModel.save(observer.getData());
+                    Navigation.findNavController(binding.getRoot()).navigate(
+                            R.id.action_loginActivity2Fragment_to_mainActivity
+                    );
                 }
             }
         });

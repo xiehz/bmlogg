@@ -29,8 +29,8 @@ import java.util.logging.Logger
  */
 interface BmloggService {
 
-    @GET("bh_logger/{tel}")
-    fun getLogger(@Path("tel")tel:String):LiveData<ApiResponse<BH_Logger>>
+    @GET("bh_logger/{tel}/{pass}")
+    fun getLogger(@Path("tel")tel:String,@Path("pass")pass:String):LiveData<ApiResponse<BH_Logger>>
 
 //    @GET("users/{login}")
 //    fun getUser(@Path("login") login: String): LiveData<ApiResponse<Logger>>

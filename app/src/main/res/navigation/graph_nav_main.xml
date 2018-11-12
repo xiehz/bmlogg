@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/projectFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ProjectFragment"
+        android:label="项目"
+        tools:layout="@layout/project_fragment" ></fragment>
+    <fragment
+        android:id="@+id/statisticFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.StatisticFragment"
+        android:label="统计"
+        tools:layout="@layout/statistic_fragment" />
+    <fragment
+        android:id="@+id/toolsFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ToolsFragment"
+        android:label="工具"
+        tools:layout="@layout/tools_fragment" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.MapFragment"
+        android:label="地图"
+        tools:layout="@layout/map_fragment" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.AboutFragment"
+        android:label="关于"
+        tools:layout="@layout/about_fragment" />
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ShareFragment"
+        android:label="分享"
+        tools:layout="@layout/share_fragment" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ui.main.MainFragment"
+        android:label="编录"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_boreholesActivity"
+            app:destination="@id/boreholesActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <activity
+        android:id="@+id/boreholesActivity"
+        android:name="com.szbm.wh.x.bmlogg.ui.BoreholesActivity"
+        android:label="boreholes_activity"
+        tools:layout="@layout/boreholes_activity" />
+</navigation>

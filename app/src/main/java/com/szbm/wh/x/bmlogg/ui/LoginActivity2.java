@@ -21,11 +21,6 @@ public class LoginActivity2 extends AppCompatActivity implements HasSupportFragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity2_activity);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, LoginActivity2Fragment.newInstance())
-                    .commitNow();
-        }
     }
 
     @Override
