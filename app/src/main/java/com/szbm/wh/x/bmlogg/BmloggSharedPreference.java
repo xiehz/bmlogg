@@ -15,6 +15,7 @@ public class BmloggSharedPreference {
     final static String id_key ="id";
     final static String user_key = "user";
     final static String pass_key = "pass";
+    final static String current_project = "cur_project";
 
     private BmloggSharedPreference(Builder builder){
         sharedPreferences = builder.application.getSharedPreferences(tag,Context.MODE_PRIVATE);
@@ -32,6 +33,7 @@ public class BmloggSharedPreference {
 
     public BH_Logger readLogin(){
         int id = -1; String user = "" ,pass = "";
+
         return new BH_Logger(sharedPreferences.getInt(id_key,id)
                 ,sharedPreferences.getString(user_key,user),
                 sharedPreferences.getString(pass_key,pass));
@@ -42,5 +44,13 @@ public class BmloggSharedPreference {
         editor.putString(user_key,login.getTel());
         editor.putString(pass_key,login.getPass());
         editor.commit();
+    }
+
+    public int readCurrentProject(){
+        return sharedPreferences.getInt(current_project,-1);
+    }
+
+    public void writeCurrentProject(int project_id){
+        sharedPreferences.edit().putInt(current_project,project_id).commit();
     }
 }

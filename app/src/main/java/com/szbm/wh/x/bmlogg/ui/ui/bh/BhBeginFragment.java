@@ -13,8 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.szbm.wh.x.bmlogg.R;
+import com.szbm.wh.x.bmlogg.ui.common.InjectFragment;
 
-public class BhBeginFragment extends Fragment {
+public class BhBeginFragment extends InjectFragment {
 
     private BhBeginViewModel mViewModel;
 

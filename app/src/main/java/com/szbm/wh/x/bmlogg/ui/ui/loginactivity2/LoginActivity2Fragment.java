@@ -29,12 +29,13 @@ import com.szbm.wh.x.bmlogg.di.Injectable;
 import com.szbm.wh.x.bmlogg.R;
 import com.szbm.wh.x.bmlogg.pojo.Resource;
 import com.szbm.wh.x.bmlogg.pojo.Status;
+import com.szbm.wh.x.bmlogg.ui.common.InjectFragment;
 import com.szbm.wh.x.bmlogg.vo.BH_Logger;
 
 
 import javax.inject.Inject;
 
-public class LoginActivity2Fragment extends Fragment implements Injectable {
+public class LoginActivity2Fragment extends InjectFragment {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -65,7 +66,8 @@ public class LoginActivity2Fragment extends Fragment implements Injectable {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mViewModel = ViewModelProviders.of(this,viewModelFactory).get(LoginActivity2ViewModel.class);
+        mViewModel = ViewModelProviders.of(this,viewModelFactory).
+                get(LoginActivity2ViewModel.class);
         mViewModel.initialize();
         binding.setLogger(mViewModel);
 

@@ -4,7 +4,7 @@ import com.szbm.wh.x.bmlogg.BmloggExecutors;
 import com.szbm.wh.x.bmlogg.api.ApiResponse;
 import com.szbm.wh.x.bmlogg.api.ApiSuccessResponse;
 import com.szbm.wh.x.bmlogg.api.BmloggService;
-import com.szbm.wh.x.bmlogg.db.BH_loggerDao;
+import com.szbm.wh.x.bmlogg.db.dao.BH_loggerDao;
 import com.szbm.wh.x.bmlogg.db.BmLoggDb;
 import com.szbm.wh.x.bmlogg.pojo.Resource;
 import com.szbm.wh.x.bmlogg.util.AbsentLiveData;
@@ -13,14 +13,10 @@ import com.szbm.wh.x.bmlogg.vo.BH_Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.function.Function;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 @Singleton

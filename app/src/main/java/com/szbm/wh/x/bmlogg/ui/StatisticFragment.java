@@ -13,8 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.szbm.wh.x.bmlogg.R;
+import com.szbm.wh.x.bmlogg.ui.common.InjectFragment;
 
-public class StatisticFragment extends Fragment {
+public class StatisticFragment extends InjectFragment {
 
     private StatisticViewModel mViewModel;
 

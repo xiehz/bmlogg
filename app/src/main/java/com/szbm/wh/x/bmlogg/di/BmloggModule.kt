@@ -1,12 +1,13 @@
 package com.szbm.wh.x.bmlogg.di
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.szbm.wh.x.bmlogg.BmloggSharedPreference
+import com.szbm.wh.x.bmlogg.api.BmloggApi
 import com.szbm.wh.x.bmlogg.api.BmloggService
 import com.szbm.wh.x.bmlogg.db.BmLoggDb
-import com.szbm.wh.x.bmlogg.db.BH_loggerDao
+import com.szbm.wh.x.bmlogg.db.dao.BH_loggerDao
+import com.szbm.wh.x.bmlogg.db.dao.ProjectInfoDao
 import com.szbm.wh.x.bmlogg.util.LiveDataCallAdapterFactory
 import com.szbm.wh.x.bmlogg.vo.BH_Logger
 import dagger.Module
@@ -30,14 +31,12 @@ class BmloggModule(val bmlogg_db:String = "bmlogg.db"){
     @Singleton
     @Provides
     fun provideService(): BmloggService {
-        return Retrofit.Builder()
-                .baseUrl("http://192.168.0.116/bmlgser/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(LiveDataCallAdapterFactory())
-                .build()
-                .create(BmloggService::class.java)
+        return BmloggApi.getInstance().bmloggService
     }
 
+    /*
+    提供全局访问
+    */
     @Singleton
     @Provides
     fun providerLogger(sharedPreference: BmloggSharedPreference): BH_Logger {
@@ -47,16 +46,20 @@ class BmloggModule(val bmlogg_db:String = "bmlogg.db"){
     @Singleton
     @Provides
     fun provideDb(app: Application): BmLoggDb {
-        return Room
-                .databaseBuilder(app, BmLoggDb::class.java, bmlogg_db)
-                .fallbackToDestructiveMigration()
-                .build()
+        return BmLoggDb.getInstance(app)
     }
+
 
     @Singleton
     @Provides
     fun provideLoggUserDao(db: BmLoggDb): BH_loggerDao {
         return db.loggerDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providerProjectInfoDao(db:BmLoggDb): ProjectInfoDao {
+        return db.projectInfoDao()
     }
 
 }

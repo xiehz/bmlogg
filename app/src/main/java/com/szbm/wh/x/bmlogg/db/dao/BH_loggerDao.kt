@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2017 The Android Open Source ProjectArea
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.szbm.wh.x.bmlogg.db
+package com.szbm.wh.x.bmlogg.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -30,6 +30,9 @@ import com.szbm.wh.x.bmlogg.vo.BH_Logger
 interface BH_loggerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(users:BH_Logger)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun inserts(users:List<BH_Logger>)
 
     @Query("SELECT * FROM BH_Logger WHERE tel = :tel and pass = :pass ")
     fun findByTelPass(tel:String,pass:String): LiveData<BH_Logger>

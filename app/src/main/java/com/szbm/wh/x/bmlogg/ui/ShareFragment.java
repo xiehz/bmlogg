@@ -13,8 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.szbm.wh.x.bmlogg.R;
+import com.szbm.wh.x.bmlogg.ui.common.InjectFragment;
 
-public class ShareFragment extends Fragment {
+public class ShareFragment extends InjectFragment {
 
     private ShareViewModel mViewModel;
 

@@ -1,13 +1,13 @@
 package com.szbm.wh.x.bmlogg.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
 import com.szbm.wh.x.bmlogg.R;
+import com.szbm.wh.x.bmlogg.ui.common.InjectActivity;
 
 
-public class BoreholesActivity extends AppCompatActivity {
+public class BoreholesActivity extends InjectActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -4,11 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.szbm.wh.x.bmlogg.ui.common.InjectActivity;
 import com.szbm.wh.x.bmlogg.ui.ui.bh.BhFragment;
 import com.szbm.wh.x.bmlogg.R;
 
 
-public class BhActivity extends AppCompatActivity {
+public class BhActivity extends InjectActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
