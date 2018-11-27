@@ -32,5 +32,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!---->
+    <string name="post_subtitle">Submitted by %s</string>
+    <string name="search_hint">钻孔代号</string>
+    <string name="default_subreddit">androiddev</string>
 
+    <string name="boreholeDepth">孔深:<b>%f</b></string>
+    <string name="boreholeIid">编号:%d</string>
+    <string name="sets_format">Sets: %d/%d</string>
+    <string name="like">%%s%</string>
 </resources>

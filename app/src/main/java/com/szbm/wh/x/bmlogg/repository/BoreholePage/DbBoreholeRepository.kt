@@ -51,18 +51,18 @@ class DbBoreholeRepository constructor(
         body!!.data.children.let { posts ->
             db.runInTransaction {
                 var start = 0;
-                if(code.isNullOrEmpty())
-                {
-                    start = db.bh_BoreholeInfoDao().getNextIndexInProject(
-                            project)
-                }else{
-                    start = db.bh_BoreholeInfoDao().getNextIndexInProjectAndCode(
-                            project,
-                            "%"+code+"%")
-                }
+//                if(code.isNullOrEmpty())
+//                {
+//                    start = db.bh_BoreholeInfoDao().getNextIndexInProject(
+//                            project)
+//                }else{
+//                    start = db.bh_BoreholeInfoDao().getNextIndexInProjectAndCode(
+//                            project,
+//                            "%"+code+"%")
+//                }
 
                 val items = posts.mapIndexed { index, child ->
-                    child.data.indexInResponse = start + index
+                    child.data.iid
                     child.data
                 }
                 db.bh_BoreholeInfoDao().inserts(items)
@@ -94,8 +94,8 @@ class DbBoreholeRepository constructor(
                                 response: Response<BmloggService.ListingResponse>) {
                             ioExecutor.execute {
                                 db.runInTransaction {
-                                    db.bh_BoreholeInfoDao().
-                                            deleteByProject(project)
+//                                    db.bh_BoreholeInfoDao().
+//                                            deleteByProject(project)
 
                                     insertResultIntoDb(code, response.body())
                                 }
@@ -118,8 +118,8 @@ class DbBoreholeRepository constructor(
                                 response: Response<BmloggService.ListingResponse>) {
                             ioExecutor.execute {
                                 db.runInTransaction {
-                                    db.bh_BoreholeInfoDao().
-                                            deleteByProjectAndCode(project,"%"+code+"%")
+//                                    db.bh_BoreholeInfoDao().
+//                                            deleteByProjectAndCode(project,"%"+code+"%")
 
                                     insertResultIntoDb(code, response.body())
                                 }

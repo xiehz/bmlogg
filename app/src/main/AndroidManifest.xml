@@ -31,7 +31,12 @@
         </activity>
         <activity android:name=".ui.LoginActivity2" />
         <activity android:name=".ui.BoreholesActivity" />
-        <activity android:name=".ui.BhActivity"></activity>
+        <activity android:name=".ui.BhActivity" />
+
+        <receiver
+            android:name=".ui.ui.main.MainReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

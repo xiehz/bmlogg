@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/projectFragment"
-        android:name="com.szbm.wh.x.bmlogg.ui.ProjectFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ui.project.ProjectFragment"
         android:label="项目"
         tools:layout="@layout/project_fragment" ></fragment>
     <fragment
