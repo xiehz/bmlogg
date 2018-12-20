@@ -22,11 +22,11 @@ import timber.log.Timber
 object LoggTypeConverters {
     @TypeConverter
     @JvmStatic
-    fun stringToIntList(data: String?): List<Int>? {
+    fun stringToIntList(data: String?): List<Long>? {
         return data?.let {
             it.split(",").map {
                 try {
-                    it.toInt()
+                    it.toLong()
                 } catch (ex: NumberFormatException) {
                     Timber.e(ex, "Cannot convert $it to number")
                     null
@@ -37,7 +37,7 @@ object LoggTypeConverters {
 
     @TypeConverter
     @JvmStatic
-    fun intListToString(ints: List<Int>?): String? {
+    fun intListToString(ints: List<Long>?): String? {
         return ints?.joinToString(",")
     }
 }

@@ -19,17 +19,17 @@
     </data>
 
     <androidx.cardview.widget.CardView
-
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/elevation"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/projectname"
@@ -47,18 +47,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.538" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_menu_gallery"
                 android:text="设置当前项目"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:visibleGone="@{ current == null ? true : current.iid != project.iid}"
                 android:onClick="@{(v)->currentListener.onClick(v)}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

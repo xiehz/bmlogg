@@ -26,40 +26,46 @@ public class DBDownloadOperation {
 
     public static class Builder {
 
-        private int iid;
+        private long iid;
+        private long number;
 
-        public Builder(@NonNull int iid) {
+        public Builder(@NonNull long iid,long number) {
             this.iid = iid;
+            this.number = number;
         }
 
         public DBDownloadOperation build() {
 
-            Data data = createInputData();
+//            Data data = new Data.Builder()
+//                    .putInt(Constants.DATA_PROJECT_KEY, iid).build();
+//
+//            WorkContinuation continuation = WorkManager.getInstance()
+//                    .beginUniqueWork(DB_DOWNLOAD_WORK_NAME,
+//                            ExistingWorkPolicy.KEEP,
+//                            new OneTimeWorkRequest
+//                                    .Builder(ProjectWorker.class)
+//                                    .setInputData(data)
+//                                    .addTag(Constants.TAG_PROJECT)
+//                                    .build());
 
-            WorkContinuation continuation = WorkManager.getInstance()
-                    .beginUniqueWork(DB_DOWNLOAD_WORK_NAME,
-                            ExistingWorkPolicy.KEEP,
-                            new OneTimeWorkRequest
-                                    .Builder(ProjectWorker.class)
-                                    .setInputData(data)
-                                    .addTag(Constants.TAG_PROJECT)
-                                    .build());
 
+            Data data = new Data.Builder()
+                    .putLong(Constants.DATA_PROJECT_KEY, iid)
+                    .putLong(Constants.DATA_NUMBER_KEY,number).build();
             OneTimeWorkRequest bh =
                     new OneTimeWorkRequest
                             .Builder(BoreholeWorker.class)
                             .setInputData(data)
                             .addTag(Constants.TAG_BH)
                             .build();
-            continuation = continuation.then(bh);
 
+            WorkContinuation continuation = WorkManager.getInstance()
+                    .beginUniqueWork(DB_DOWNLOAD_WORK_NAME,
+                            ExistingWorkPolicy.KEEP,
+                            bh);
+//            continuation = continuation.then(bh);
 
             return new DBDownloadOperation(continuation);
-        }
-
-        private Data createInputData() {
-            return new Data.Builder()
-                    .putInt(Constants.DATA_KEY, iid).build();
         }
     }
 

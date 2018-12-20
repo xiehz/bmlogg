@@ -8,7 +8,7 @@ data class ProjectInfo
 (
 
         @PrimaryKey
-        var   iid :Int,
+        var   iid :Long,
 
         var   code :String?,
 
@@ -33,5 +33,5 @@ data class ProjectInfo
         var   cascade_id :String?
 
 ){
-        var checked:Int = 0
+//        var checked:Int = 0
 }

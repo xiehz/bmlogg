@@ -5,6 +5,7 @@ import com.szbm.wh.x.bmlogg.ui.ui.bh.*
 import com.szbm.wh.x.bmlogg.ui.ui.boreholes.BoreholesFragment
 import com.szbm.wh.x.bmlogg.ui.ui.loginactivity2.LoginActivity2Fragment
 import com.szbm.wh.x.bmlogg.ui.ui.main.MainFragment
+import com.szbm.wh.x.bmlogg.ui.ui.map.MapFragment
 import com.szbm.wh.x.bmlogg.ui.ui.project.ProjectFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -29,7 +30,7 @@ interface BmloggFragsModule{
     fun contributeToolsFragmentInjector():ToolsFragment
 
     @ContributesAndroidInjector
-    fun contributeMapFragmentInjector():MapFragment
+    fun contributeMapFragmentInjector(): MapFragment
 
     @ContributesAndroidInjector
     fun contributeAboutFragmentInjector():AboutFragment
@@ -39,9 +40,6 @@ interface BmloggFragsModule{
 
     @ContributesAndroidInjector
     fun contributeBoreholesFragmentInjector():BoreholesFragment
-
-    @ContributesAndroidInjector
-    fun contributeBhFragmentInjector():BhFragment
 
     @ContributesAndroidInjector
     fun contributeBhBeginFragmentInjector():BhBeginFragment
@@ -57,4 +55,7 @@ interface BmloggFragsModule{
 
     @ContributesAndroidInjector
     fun contributeBhEndFragmentInjector():BhEndFragment
+
+    @ContributesAndroidInjector
+    fun contributeBhBasicFragmentInjector():BhBasicFragment
 }

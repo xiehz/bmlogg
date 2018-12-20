@@ -37,7 +37,6 @@ class DbBoreholeRepository constructor(
         val db: BmLoggDb,
         private val bmloggService: BmloggService,
         private val ioExecutor: Executor,
-        private val project:Int,
         private val networkPageSize: Int = DEFAULT_NETWORK_PAGE_SIZE)
 {
     companion object {
@@ -50,17 +49,6 @@ class DbBoreholeRepository constructor(
     private fun insertResultIntoDb(code: String?, body: BmloggService.ListingResponse?) {
         body!!.data.children.let { posts ->
             db.runInTransaction {
-                var start = 0;
-//                if(code.isNullOrEmpty())
-//                {
-//                    start = db.bh_BoreholeInfoDao().getNextIndexInProject(
-//                            project)
-//                }else{
-//                    start = db.bh_BoreholeInfoDao().getNextIndexInProjectAndCode(
-//                            project,
-//                            "%"+code+"%")
-//                }
-
                 val items = posts.mapIndexed { index, child ->
                     child.data.iid
                     child.data
@@ -78,11 +66,11 @@ class DbBoreholeRepository constructor(
      * updated after the database transaction is finished.
      */
     @MainThread
-    private fun refresh(project: Int,code: String?): LiveData<NetworkState> {
+    private fun refresh(project: Long,code: String?,number:Long): LiveData<NetworkState> {
         val networkState = MutableLiveData<NetworkState>()
         networkState.value = NetworkState.LOADING
         if(code.isNullOrEmpty()){
-            bmloggService.getTop(project, networkPageSize).enqueue(
+            bmloggService.getTop(project, networkPageSize,number).enqueue(
                     object : Callback<BmloggService.ListingResponse> {
                         override fun onFailure(call: Call<BmloggService.ListingResponse>, t: Throwable) {
                             // retrofit calls this on main thread so safe to call set value
@@ -94,9 +82,6 @@ class DbBoreholeRepository constructor(
                                 response: Response<BmloggService.ListingResponse>) {
                             ioExecutor.execute {
                                 db.runInTransaction {
-//                                    db.bh_BoreholeInfoDao().
-//                                            deleteByProject(project)
-
                                     insertResultIntoDb(code, response.body())
                                 }
                                 // since we are in bg thread now, post the result.
@@ -106,7 +91,7 @@ class DbBoreholeRepository constructor(
                     }
             )
         }else{
-            bmloggService.getTopByCode(project,code, networkPageSize).enqueue(
+            bmloggService.getTopByCode(project,code, networkPageSize,number).enqueue(
                     object : Callback<BmloggService.ListingResponse> {
                         override fun onFailure(call: Call<BmloggService.ListingResponse>, t: Throwable) {
                             // retrofit calls this on main thread so safe to call set value
@@ -138,12 +123,13 @@ class DbBoreholeRepository constructor(
      * Returns a Listing for the given subreddit.
      */
     @MainThread
-    fun postsOfSubreddit(project: Int,code: String?, pageSize: Int): Listing<BH_BoreholeInfo> {
+    fun postsOfSubreddit(project: Long,code: String?, pageSize: Int,number: Long): Listing<BH_BoreholeInfo> {
         // create a boundary callback which will observe when the user reaches to the edges of
         // the list and update the database with extra data.
         val boundaryCallback = BoreholeBoundaryCallback(
                 webservice = bmloggService,
                 code = code,
+                number = number,
                 handleResponse = this::insertResultIntoDb,
                 ioExecutor = ioExecutor,
                 project = project,
@@ -153,7 +139,7 @@ class DbBoreholeRepository constructor(
         // dispatched data in refreshTrigger
         val refreshTrigger = MutableLiveData<Unit>()
         val refreshState = Transformations.switchMap(refreshTrigger) {
-            refresh(project,code)
+            refresh(project,code,number)
         }
 
         // We use toLiveData Kotlin extension function here, you could also use LivePagedListBuilder

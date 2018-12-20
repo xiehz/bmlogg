@@ -2,11 +2,11 @@ package com.szbm.wh.x.bmlogg.vo
 
 data class Re_BH_CoreCatalog
 (
-        var bhext_rocksoil_info:List<bhext_rocksoil_info>?,
+        var bhext_rocksoil_info:List<Bhext_rocksoil_info>?,
 
-        var  iid :Int,
+        var  iid :Long,
 
-        var  borehole_id :Int,
+        var  borehole_id :Long,
 
         var  step :Float?,
 
@@ -16,7 +16,7 @@ data class Re_BH_CoreCatalog
 
         var  coresample_take_rate :Double?,
 
-        var  rqd:Double? ,
+        var  rqd:Double?,
 
         var  core_length :Float?,
 
@@ -36,7 +36,7 @@ data class Re_BH_CoreCatalog
 
         var  line_density :Double?,
 
-        var  unloading_level :Int? ,
+        var  unloading_level :Int?,
 
         var  box_code :String?,
 
@@ -152,7 +152,7 @@ data class Re_BH_CoreCatalog
         }
 
         fun from(bH_CoreCatalog: BH_CoreCatalog,
-                 bhext_rocksoil_info:List<bhext_rocksoil_info>? ):Re_BH_CoreCatalog {
+                 bhext_rocksoil_info:List<Bhext_rocksoil_info>? ):Re_BH_CoreCatalog {
             return Re_BH_CoreCatalog(
                     bhext_rocksoil_info,
                     bH_CoreCatalog.iid,

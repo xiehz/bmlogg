@@ -21,9 +21,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import com.szbm.wh.x.bmlogg.db.dao.*
 import com.szbm.wh.x.bmlogg.vo.*
 
@@ -33,30 +30,34 @@ import com.szbm.wh.x.bmlogg.vo.*
  */
 @Database(
     entities = [
-        bh_begin_info::class,
+        Bh_begin_info::class,
         BH_Logger::class,
         BH_BoreholeInfo::class,
     BH_CoreCatalog::class,
-    bh_end_info::class,
-    bh_extra_info::class,
-    bh_geo_date::class,
-    bh_imagesinfo::class,
-    bhext_rocksoil_info::class,
-    bhext_sampling_info::class,
+    Bh_end_info::class,
+    Bh_extra_info::class,
+    Bh_geo_date::class,
+    Bh_imagesinfo::class,
+    Bhext_rocksoil_info::class,
+    Bhext_sampling_info::class,
     C_Project_Stratum::class,
     C_Project_Lithology::class,
     c_project_stratum_ext::class,
     C_PubDic::class,
-    c_stratum_ext::class,
+    C_stratum_ext::class,
     ProjectArea::class,
     ProjectInfo::class,
     ProjectPhase::class,
     SampleRecord::class,
-    sec_linebh::class,
-    sec_lineinfo::class,
-    ts_sptdata::class,
-    ts_sptinfo::class,
-    tsext_spt_info::class
+    Sec_linebh::class,
+    Sec_lineinfo::class,
+    Ts_sptdata::class,
+    Ts_sptinfo::class,
+    Tsext_spt_info::class,
+    BH_Logger_BoreholeInfo::class,
+    BH_Logger_Project::class,
+    ProjectBoreholes::class,
+    BoreholeSet::class
     ],
     version = 1,
     exportSchema = false
@@ -86,6 +87,10 @@ abstract class BmLoggDb : RoomDatabase() {
     abstract fun tsext_spt_infoDao():tsext_spt_infoDao
     abstract fun ts_sptdataDao():ts_sptdataDao
     abstract fun ts_sptinfoDao():ts_sptinfoDao
+    abstract fun bh_logger_BoreholeDao():BH_Logger_BoreholeDao
+    abstract fun bh_logger_ProjectDao():BH_Logger_ProjectDao
+    abstract fun projectBoreholesDao():ProjectBoreholesDao
+    abstract fun boreholesSetDao():BoreholeSetDao
 
     companion object {
         private val bmlogg_db:String = "bmlogg.db"

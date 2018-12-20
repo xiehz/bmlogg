@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <paths>
+        <cache-path name = "download" path= ""/>
+        <file-path name = "files" path = ""></file-path>
+        <external-cache-path name = "ecp" path = ""></external-cache-path>
+
+        <external-path
+            name="camera_photos"
+            path="" />
+    </paths>
+</PreferenceScreen>

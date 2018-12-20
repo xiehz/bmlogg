@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <data>
+        <variable
+            name="locatetimeListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
+            name="locateListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
+            name="gd"
+            type="com.szbm.wh.x.bmlogg.vo.Bh_geo_date">
+        </variable>
+        <import type="com.szbm.wh.x.bmlogg.binding.Converter"/>
+    </data>
+    <androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:visibleGone="@{gd != null}">
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView22"
+                app:layout_constraintTop_toBottomOf="@+id/imageButton3"
+                android:text="@{gd.time}"/>
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="经度:"
+                app:layout_constraintBaseline_toBaselineOf="@+id/editText14"
+                app:layout_constraintEnd_toStartOf="@+id/editText14"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/editText14"
+                android:layout_width="92dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toStartOf="@+id/textView21"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{Converter.doubleToString(context,gd.longi)}"/>
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="纬度:"
+                app:layout_constraintBaseline_toBaselineOf="@+id/editText15"
+                app:layout_constraintEnd_toStartOf="@+id/editText15"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/editText14" />
+
+            <EditText
+                android:id="@+id/editText15"
+                android:layout_width="114dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView21"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{Converter.doubleToString(context,gd.lat)}"/>
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="数据来自高德定位"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView18" />
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{(v)->locateListener.onClick(v)}"
+                app:layout_constraintBottom_toBottomOf="@+id/editText15"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/editText15"
+                app:layout_constraintTop_toTopOf="@+id/editText15"
+                app:srcCompat="@android:drawable/ic_menu_mylocation" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="定位保存"
+            android:onClick="@{(v)->locatetimeListener.onClick(v)}"
+            app:visibleGone="@{gd == null}"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+</layout>

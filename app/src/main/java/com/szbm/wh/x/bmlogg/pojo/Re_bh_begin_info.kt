@@ -14,15 +14,15 @@ data class Re_bh_begin_info
 )
 {
     companion object {
-        fun converTo(re_bh_begin_info: Re_bh_begin_info):bh_begin_info{
-            return bh_begin_info(
+        fun converTo(re_bh_begin_info: Re_bh_begin_info):Bh_begin_info{
+            return Bh_begin_info(
                     re_bh_begin_info.iid,
                     re_bh_begin_info.borehole_extra_iid ,
                     re_bh_begin_info.logger_iid ,
                     re_bh_begin_info.comment
             )
         }
-        fun from(bh_begin_info: bh_begin_info,
+        fun from(bh_begin_info: Bh_begin_info,
                  bh_logger: BH_Logger?):Re_bh_begin_info{
             return Re_bh_begin_info(
                     bh_logger,

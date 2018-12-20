@@ -1,19 +1,19 @@
 package com.szbm.wh.x.bmlogg.pojo
 
 import com.szbm.wh.x.bmlogg.vo.BH_Logger
-import com.szbm.wh.x.bmlogg.vo.tsext_spt_info
+import com.szbm.wh.x.bmlogg.vo.Tsext_spt_info
 
 data class Re_tsext_spt_info(
         var bh_logger: BH_Logger?,
-        var iid :Int,
-        var borehole_extra_iid :Int,
-        var bhspt_iid :Int,
-        var logger_iid :Int,
+        var iid :Long,
+        var borehole_extra_iid :Long,
+        var bhspt_iid :Long,
+        var logger_iid :Long,
         var  comment :String?
         ){
     companion object {
-        fun converTo(re: Re_tsext_spt_info):tsext_spt_info{
-            return tsext_spt_info(
+        fun converTo(re: Re_tsext_spt_info):Tsext_spt_info{
+            return Tsext_spt_info(
                     re.iid ,
                     re.borehole_extra_iid ,
                     re.bhspt_iid ,
@@ -21,7 +21,7 @@ data class Re_tsext_spt_info(
                     re.comment
             )
         }
-        fun from(tsext_spt_info: tsext_spt_info,
+        fun from(tsext_spt_info: Tsext_spt_info,
                  bh_logger: BH_Logger?):Re_tsext_spt_info{
             return Re_tsext_spt_info(
                     bh_logger,

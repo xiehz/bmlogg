@@ -21,4 +21,7 @@ interface SampleRecordDao{
 
     @Query("SELECT * FROM SampleRecord WHERE iid = :iid")
     fun select(iid:Int): LiveData<SampleRecord>
+
+    @Query("SELECT MAX(iid) FROM SampleRecord")
+    fun selectMaxWithoutLife(): Long
 }

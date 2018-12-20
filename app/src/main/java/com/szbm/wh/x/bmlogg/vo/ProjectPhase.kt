@@ -9,11 +9,11 @@ import androidx.room.PrimaryKey
 data class ProjectPhase
 (
         @PrimaryKey
-        var  iid :Int,
+        var  iid :Long,
 
-        var  project_id :Int,
+        var  project_id :Long,
 
-        var  phase :Int,
+        var  phase :Long,
 
         var  survey_unit :String?,
 
@@ -35,5 +35,5 @@ data class ProjectPhase
 
         var  deleted :Int?
 ){
-        var checked:Int = 0
+//        var checked:Int = 0
 }

@@ -22,5 +22,14 @@
         android:id="@+id/bhActivity"
         android:name="com.szbm.wh.x.bmlogg.ui.BhActivity"
         android:label="bh_activity"
-        tools:layout="@layout/bh_activity" />
+        tools:layout="@layout/bh_activity">
+        <argument
+            android:name="com.szbm.wh.x.bmlogg.ui.bh.iid"
+            android:defaultValue="-1L"
+            app:argType="long"/>
+        <argument
+            android:name="com.szbm.wh.x.bmlogg.ui.bh.name"
+            app:argType="string"
+            app:nullable="true"/>
+    </activity>
 </navigation>

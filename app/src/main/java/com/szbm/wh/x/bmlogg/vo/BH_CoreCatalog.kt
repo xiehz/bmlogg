@@ -12,9 +12,9 @@ import androidx.room.PrimaryKey
 data class BH_CoreCatalog
 (
         @PrimaryKey
-        var  iid :Int,
+        var  iid :Long,
 
-        var  borehole_id :Int,
+        var  borehole_id :Long,
 
         var  step :Float?,
 
@@ -86,3 +86,6 @@ data class BH_CoreCatalog
 
         var GuJiaChengFen :String?
 )
+{
+        var from_server:Int? = 0 // 默认从服务器上来 <>0 则是本地新建
+}

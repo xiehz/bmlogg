@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
 data class c_project_stratum_ext
 (
 
-        var  project_id :Int,
+        var  project_id :Long,
 
         var name :String?,
 
@@ -19,5 +19,5 @@ data class c_project_stratum_ext
 )
 {
     @PrimaryKey(autoGenerate = true)
-    var iid :Int = 0
+    var iid :Long = 0
 }

@@ -32,62 +32,68 @@ interface BmloggService {
     @GET("bh_logger/login/{tel}/{pass}")
     fun getLogger(@Path("tel")tel:String,@Path("pass")pass:String):LiveData<ApiResponse<BH_Logger>>
 
-    @GET("ProjectInfoes")
-    fun getProjectInfos():LiveData<ApiResponse<List<ProjectInfo>>>
+    @GET("ProjectInfoes/project/logger")
+    fun getProjectInfos(@Query("number")number:Long):LiveData<ApiResponse<List<ProjectInfo>>>
 
     @GET("ProjectInfoes/{id}")
-    fun getProjectInfoWorker(@Path("id")id:Int):Call<Re_Project>
+    fun getProjectInfoWorker(@Path("id")id:Long):Call<Re_Project>
 
-    @GET("c_stratum_ext")
-    fun getc_stratum_extWorker():Call<List<c_stratum_ext>>
-
-    @GET("c_project_stratum_ext/project/{id}")
-    fun getc_project_stratum_extWorker(@Path("id") id:Int):Call<List<c_project_stratum_ext>>
+    @GET("C_stratum_ext")
+    fun getc_stratum_extWorker():Call<List<C_stratum_ext>>
 
     @GET("C_PubDic")
     fun getC_PubDicWorker():Call<List<C_PubDic>>
 
     @GET("BH_BoreholeInfo/{id}")
-    fun getBoreholeWorker(@Path("id")id:Int):Call<Re_BH_BoreholeInfo>
+    fun getBoreholeWorker(@Path("id")id:Long):Call<Re_BH_BoreholeInfo>
 
-    @GET("BH_BoreholeInfo/project/{id}")
-    fun getBoreholeIndices(@Path("id")id:Int):Call<List<Int>>
+    @GET("BH_BoreholeInfo/{id}")
+    fun getBoreholeAll(@Path("id")id:Long):LiveData<ApiResponse<Re_BH_BoreholeInfo>>
+
+    @GET("BH_BoreholeInfo/project/number")
+    fun getBoreholeIndices(@Query("id")id:Long,@Query("number")number: Long):Call<List<Long>>
 
 
     //-page
     @GET("BH_BoreholeInfo/project/{project}/top")
     fun getTop(
-            @Path("project") project: Int,
-            @Query("limit") limit: Int): Call<ListingResponse>
+            @Path("project") project: Long,
+            @Query("limit") limit: Int,
+            @Query("number")number:Long): Call<ListingResponse>
 
     @GET("BH_BoreholeInfo/project/{project}/after")
     fun getTopAfter(
-            @Path("project") project: Int,
-            @Query("after") after: Int,
-            @Query("limit") limit: Int): Call<ListingResponse>
+            @Path("project") project: Long,
+            @Query("after") after: Long,
+            @Query("limit") limit: Int,
+            @Query("number")number:Long): Call<ListingResponse>
 
     @GET("BH_BoreholeInfo/project/{project}/code/{code}/top")
     fun getTopByCode(
-            @Path("project") project: Int,
+            @Path("project") project: Long,
             @Path("code") code:String?,
-            @Query("limit") limit: Int): Call<ListingResponse>
+            @Query("limit") limit: Int,
+            @Query("number")number:Long): Call<ListingResponse>
 
     @GET("BH_BoreholeInfo/project/{project}/code/{code}/after")
     fun getTopAfterByCode(
-            @Path("project") project: Int,
+            @Path("project") project: Long,
             @Path("code") code:String?,
-            @Query("after") after: Int,
-            @Query("limit") limit: Int): Call<ListingResponse>
+            @Query("after") after: Long,
+            @Query("limit") limit: Int,
+            @Query("number")number:Long): Call<ListingResponse>
 
     class ListingResponse(val data: ListingData)
 
     class ListingData(
-            val children: List<RedditChildrenResponse>,
-            val after: String?,
-            val before: String?
+            val children: List<BoreholeChildrenResponse>,
+            val after: Long?,
+            val before: Long?
     )
 
-    data class RedditChildrenResponse(val data: BH_BoreholeInfo)
+    data class BoreholeChildrenResponse(val data: BH_BoreholeInfo)
 
 
+    @GET("BH_BoreholeInfo/bh/extra")
+    fun GetBH_BoreholeInfobh_extra_info(@Query("id") id: Long):LiveData<ApiResponse<List<Re_BH_BoreholeInfo>>>
 }

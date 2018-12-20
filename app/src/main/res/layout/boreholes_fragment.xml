@@ -24,23 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:id="@+id/root">
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:focusedByDefault="false"
-            android:layout_marginTop="8dp">
-            <EditText
-                android:id="@+id/input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/search_hint"
-                android:imeOptions="actionSearch"
-                android:inputType="textNoSuggestions" />
-        </com.google.android.material.textfield.TextInputLayout>
+        android:id="@+id/root"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"

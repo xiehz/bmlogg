@@ -85,8 +85,7 @@ public class LoginActivity2Fragment extends InjectFragment {
             binding.setResource(observer);
             if(observer  != null)
             {
-                if(observer.getStatus() == Status.SUCCESS
-                        && observer.getData() != null){
+                if(observer.getData() != null){
                     mViewModel.save(observer.getData());
                     Navigation.findNavController(binding.getRoot()).navigate(
                             R.id.action_loginActivity2Fragment_to_mainActivity

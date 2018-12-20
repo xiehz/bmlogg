@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_location"
+        android:orderInCategory="100"
+        android:title="@string/action_logger_bh"
+        app:showAsAction="always" />
+
+    <group android:id="@+id/action_upload_group"
+        android:menuCategory="secondary">
+        <item
+            android:id="@+id/action_upload_begin"
+            android:orderInCategory="100"
+            android:title="@string/upload_begin_info"
+            app:showAsAction="always"
+            />
+        <item
+            android:id="@+id/action_upload_rocksoil"
+            android:orderInCategory="100"
+            android:title="@string/upload_rock_info"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_upload_sample"
+            android:orderInCategory="100"
+            android:title="@string/upload_sample_info"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_upload_spt"
+            android:orderInCategory="100"
+            android:title="@string/upload_spt_info"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_upload_end"
+            android:orderInCategory="100"
+            android:title="@string/upload_end_info"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_upload"
+            android:orderInCategory="100"
+            android:title="@string/upload_borehole"
+            app:showAsAction="never" />
+
+    </group>
+
+</menu>

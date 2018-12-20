@@ -28,6 +28,8 @@
     <string name="go">进入</string>
     <string name="retry">重试</string>
     <string name="unknown_error">未知错误</string>
+    <string name="create_borehole">新增钻孔</string>
+    <string name="view_local_boreholes">查看新增钻孔列表</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -39,5 +41,87 @@
     <string name="boreholeDepth">孔深:<b>%f</b></string>
     <string name="boreholeIid">编号:%d</string>
     <string name="sets_format">Sets: %d/%d</string>
-    <string name="like">%%s%</string>
+    <string name="boreholecount">%d个</string>
+    <string name="ftoS4">%.4f</string>
+    <string name="itoS">%d</string>
+
+    <string name="action_logger_bh">我和钻孔</string>
+    <string name="action_logger_bh_radius">我的半径</string>
+    <string name="search_view">搜索</string>
+    <string name="upload_begin_info">上传开孔</string>
+    <string name="upload_end_info">上传终孔</string>
+    <string name="upload_rock_info">上传地层</string>
+    <string name="upload_sample_info">上传取样</string>
+    <string name="upload_spt_info">上传标贯</string>
+    <string name="upload_borehole">上传所有数据</string>
+
+
+    <string name="zoom_buttons">显示</string>
+    <string name="zoom_gestures">缩放手势</string>
+    <string name="zoom_in">+</string>
+    <string name="zoom_out">—</string>
+    <string name="scale">比例尺</string>
+    <string name="buttonScale">获取比例尺</string>
+    <string name="logo_position">logo位置</string>
+    <string name="bottom_left">左下</string>
+    <string name="bottom_center">底部居中</string>
+    <string name="bottom_right">右下</string>
+    <string name="center_right">右中</string>
+    <string name="zoom_position">zoom显示及位置</string>
+    <string name="compass">指南针</string>
+    <string name="mylocation_layer">我的位置图层</string>
+    <string name="project_location">项目</string>
+    <string name="borehole_nearest">附近的钻孔</string>
+    <string name="location_report">定位报告</string>
+
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="setting">设置</string>
+    <string name="cancel">取消</string>
+    <string name="ok">确定</string>
+
+    <string name="start">开始</string>
+    <string name="stop">停止</string>
+
+    <string name="title_location">获取定位数据</string>
+    <string name="location_dec">调用定位接口获取定位数据</string>
+
+    <string name="startLocation">开始定位</string>
+    <string name="stopLocation">停止定位</string>
+
+    <string name="signIn">签到</string>
+    <string name="signInPurpose">签到场景</string>
+    <string name="signInPurpose_dec">只进行一次定位返回最接近真实位置的定位结果（定位速度可能会延迟1-3s)</string>
+
+    <string name="location">正在定位中</string>
+    <string name="gpsfollow">追随</string>
+    <string name="gpslocate">定位</string>
+    <string name="gpsrotate">旋转</string>
+
+    <string name="battery_saving">低功耗模式</string>
+    <string name="device_sensors">仅设备模式</string>
+    <string name="hight_accuracy">高精度模式</string>
+    <string name="interval">定位周期(ms)</string>
+    <string name="httpTimeout">网络超时(ms)</string>
+    <string name="location_once">单次定位</string>
+    <string name="needAddress">逆地理编码</string>
+    <string name="cacheAble">开启缓存</string>
+    <string name="onceLastest">提高首次定位精度</string>
+    <string name="gpsFirst">GPS优先</string>
+    <string name="useSensor">使用传感器</string>
+    <string name="wifiScan">开启wifi扫描</string>
+
+    <string name="geoLanguage">逆地理语言</string>
+    <string name="defaultInteval">2000</string>
+    <string name="defaultHttpTimeout">30000</string>
+
+    <string name="basic_borehole">基本信息</string>
+    <string name="begin_borehole">开孔</string>
+    <string name="rocksoil_borehole">地层</string>
+    <string name="sampling_borehole">采样</string>
+    <string name="spt_borehole">标贯</string>
+    <string name="end_borehole">终孔</string>
+
+    <string name="upload">上传</string>
+    <string name="download">下载</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.szbm.wh.x.bmlogg.ui.ui.bh;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -15,9 +16,13 @@ import android.view.ViewGroup;
 import com.szbm.wh.x.bmlogg.R;
 import com.szbm.wh.x.bmlogg.ui.common.InjectFragment;
 
+import javax.inject.Inject;
+
 public class SptFragment extends InjectFragment {
 
     private SptViewModel mViewModel;
+    @Inject
+    ViewModelProvider.Factory factory;
 
     public static SptFragment newInstance() {
         return new SptFragment();
@@ -32,7 +37,7 @@ public class SptFragment extends InjectFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(SptViewModel.class);
+        mViewModel = ViewModelProviders.of(this,factory).get(SptViewModel.class);
         // TODO: Use the ViewModel
     }
 

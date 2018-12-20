@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_project_location"
+        android:title="@string/project_location"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_borehole_nearest"
+        android:title="@string/borehole_nearest"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_search_radius"
+        android:title="@string/action_logger_bh_radius"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_location_report"
+        android:title="@string/location_report"
+        app:showAsAction="never" />
+</menu>

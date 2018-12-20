@@ -20,11 +20,15 @@ package com.szbm.wh.x.bmlogg.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.android.example.github.viewmodel.BmloggViewModelFactory
+import com.szbm.wh.x.bmlogg.ui.ToolsViewModel
+import com.szbm.wh.x.bmlogg.ui.ui.bh.*
+import com.szbm.wh.x.bmlogg.ui.ui.map.MapViewModel
 import com.szbm.wh.x.bmlogg.ui.ui.boreholes.BoreholesViewModel
 import com.szbm.wh.x.bmlogg.ui.ui.loginactivity2.LoginActivity2ViewModel
 import com.szbm.wh.x.bmlogg.ui.ui.main.MainViewModel
 import com.szbm.wh.x.bmlogg.ui.ui.project.ProjectViewModel
-import com.szbm.wh.x.bmlogg.vo.BH_Logger
+import com.szbm.wh.x.bmlogg.ui.ui.loggerbh.LoggerBhViewModel
+import com.szbm.wh.x.bmlogg.ui.ui.loggingdetail.LoggingDetailViewModel
 
 import dagger.Binds
 import dagger.Module
@@ -52,6 +56,67 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(BoreholesViewModel::class)
     abstract fun bindBoreholesViewModel(boreholesViewModel: BoreholesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BhViewModel::class)
+    abstract fun bindBhViewModel(bhViewModel: BhViewModel): ViewModel
+
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BhBasicViewModel::class)
+    abstract fun bindBhBasicViewModel(basicViewModel: BhBasicViewModel): ViewModel
+
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MapViewModel::class)
+    abstract fun bindMapViewModel(mapViewModel: MapViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ToolsViewModel::class)
+    abstract fun bindToolsViewModel(toolsViewModel: ToolsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoggerBhViewModel::class)
+    abstract fun bindLoggerBhViewModel(loggerBhViewModel: LoggerBhViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoggingDetailViewModel::class)
+    abstract fun bindloggingDetailViewModel(loggingDetailViewModel: LoggingDetailViewModel): ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BhBeginViewModel::class)
+    abstract fun bindBhBeginViewModel(bhBeginViewModel: BhBeginViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RockSoilViewModel::class)
+    abstract fun bindRockSoilViewModel(rockSoilViewModel: RockSoilViewModel): ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SampleViewModel::class)
+    abstract fun bindSampleViewModel(sampleViewModel: SampleViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SptViewModel::class)
+    abstract fun bindSptViewModel(sptViewModel: SptViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BhEndViewModel::class)
+    abstract fun bindBhEndViewModel(bhEndViewModel: BhEndViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: BmloggViewModelFactory): ViewModelProvider.Factory

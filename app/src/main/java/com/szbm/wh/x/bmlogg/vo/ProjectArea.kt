@@ -14,11 +14,11 @@ ForeignKey(entity = ProjectPhase::class,
 data class ProjectArea(
 
         @PrimaryKey
-        var iid:Int,
+        var iid:Long,
         var name:String,
         var phase_id:Int,
         var project_id:Int
 )
 {
-        var checked:Int = 0
+//        var checked:Int = 0
 }

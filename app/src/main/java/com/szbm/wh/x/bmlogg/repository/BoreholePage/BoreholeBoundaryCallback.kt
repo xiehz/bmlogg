@@ -36,8 +36,9 @@ import java.util.concurrent.Executor
  * rate limiting using the PagingRequestHelper class.
  */
 class BoreholeBoundaryCallback(
-        private val project:Int,
+        private val project:Long,
         private val code: String?,
+        private val number:Long,
         private val webservice: BmloggService,
         private val handleResponse: (String?, BmloggService.ListingResponse?) -> Unit,
         private val ioExecutor: Executor,
@@ -56,14 +57,16 @@ class BoreholeBoundaryCallback(
             if(code.isNullOrEmpty()){
                 webservice.getTop(
                         project = project,
-                        limit = networkPageSize)
+                        limit = networkPageSize,
+                        number = number)
                         .enqueue(createWebserviceCallback(it))
             }
             else{
                 webservice.getTopByCode(
                         project = project,
                         code = code,
-                        limit = networkPageSize)
+                        limit = networkPageSize,
+                                number = number)
                         .enqueue(createWebserviceCallback(it))
             }
 
@@ -80,14 +83,15 @@ class BoreholeBoundaryCallback(
                 webservice.getTopAfter(
                         project = project,
                         after = itemAtEnd.iid,
-                        limit = networkPageSize)
+                        limit = networkPageSize,
+                        number = number)
                         .enqueue(createWebserviceCallback(it))
             }else{
                 webservice.getTopAfterByCode(
                         project = project,
                         code = code,
                         after = itemAtEnd.iid,
-                        limit = networkPageSize)
+                        limit = networkPageSize,number = number)
                         .enqueue(createWebserviceCallback(it))
             }
         }

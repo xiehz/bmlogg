@@ -2,8 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_create_borehole"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="@string/create_borehole"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_view_boreholes"
+        android:orderInCategory="100"
+        android:title="@string/view_local_boreholes"
+        app:showAsAction="always" />
 </menu>

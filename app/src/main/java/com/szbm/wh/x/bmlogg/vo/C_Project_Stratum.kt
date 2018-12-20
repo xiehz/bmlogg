@@ -11,9 +11,9 @@ import androidx.room.PrimaryKey
 data class C_Project_Stratum
 (
         @PrimaryKey
-        var  iid :Int,
+        var  iid :Long,
 
-        var  project_id :Int,
+        var  project_id :Long,
 
         var  stratum_age :String?,
 

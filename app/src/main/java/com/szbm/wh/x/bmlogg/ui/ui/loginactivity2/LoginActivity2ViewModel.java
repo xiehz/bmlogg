@@ -56,7 +56,7 @@ public class LoginActivity2ViewModel extends ObservableViewModel {
 
     public void login(){
         if(validString(this.tel) && validString(this.pass))
-            bhLoggerMutableLiveData.setValue(new BH_Logger(-1,this.tel,this.pass));
+            bhLoggerMutableLiveData.setValue(new BH_Logger(-1,this.tel,this.pass,null));
         else{
             bhLoggerMutableLiveData.setValue(null);
         }
@@ -76,11 +76,12 @@ public class LoginActivity2ViewModel extends ObservableViewModel {
         }
     }
 
-    public void save(BH_Logger bh_logger){
-        bmloggSharedPreference.writeLogin(bh_logger);
-        bh_logger.setNumber(bh_logger.getNumber());
-        bh_logger.setTel(bh_logger.getTel());
-        bh_logger.setPass(bh_logger.getPass());
+    public void save(BH_Logger logger){
+        bmloggSharedPreference.writeLogin(logger);
+        bh_logger.setNumber(logger.getNumber());
+        bh_logger.setTel(logger.getTel());
+        bh_logger.setPass(logger.getPass());
+        bh_logger.setUrl(logger.getUrl());
     }
 
     private final MutableLiveData<BH_Logger> bhLoggerMutableLiveData = new MutableLiveData<>();

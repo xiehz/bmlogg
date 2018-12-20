@@ -1,7 +1,13 @@
 package com.szbm.wh.x.bmlogg.ui;
 
+import javax.inject.Inject;
+
 import androidx.lifecycle.ViewModel;
 
 public class ToolsViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
+
+    @Inject
+    ToolsViewModel(){
+
+    }
 }

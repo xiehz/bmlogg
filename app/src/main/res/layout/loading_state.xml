@@ -60,6 +60,7 @@
             android:layout_height="wrap_content"
             android:text="@{resource.message ?? @string/unknown_error}"
             app:visibleGone="@{resource.status == Status.ERROR}" />
+
     </LinearLayout>
 </layout>
 

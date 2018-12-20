@@ -22,9 +22,17 @@
         tools:layout="@layout/tools_fragment" />
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.szbm.wh.x.bmlogg.ui.MapFragment"
+        android:name="com.szbm.wh.x.bmlogg.ui.ui.map.MapFragment"
         android:label="地图"
-        tools:layout="@layout/map_fragment" />
+        tools:layout="@layout/map_fragment" >
+        <action
+            android:id="@+id/action_mapFragment_to_bhActivity2"
+            app:destination="@id/bhActivity2"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.szbm.wh.x.bmlogg.ui.AboutFragment"
@@ -53,4 +61,15 @@
         android:name="com.szbm.wh.x.bmlogg.ui.BoreholesActivity"
         android:label="boreholes_activity"
         tools:layout="@layout/boreholes_activity" />
+    <activity
+        android:id="@+id/bhActivity2"
+        android:name="com.szbm.wh.x.bmlogg.ui.BhActivity">
+        <argument
+            android:name="com.szbm.wh.x.bmlogg.ui.bh.iid"
+            android:defaultValue="-1L"
+            app:argType="long"/>
+        <argument
+            android:name="com.szbm.wh.x.bmlogg.ui.bh.name"
+            app:argType="string" />
+    </activity>
 </navigation>

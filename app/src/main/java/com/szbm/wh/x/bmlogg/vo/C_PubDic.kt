@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 data class C_PubDic
 (
         @PrimaryKey
-        var  iid :Int ,
+        var  iid :Long ,
 
         var  catalog_name :String? ,
 

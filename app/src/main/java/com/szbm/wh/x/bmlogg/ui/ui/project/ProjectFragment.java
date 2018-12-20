@@ -10,20 +10,16 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.work.Data;
-import androidx.work.State;
 import androidx.work.WorkStatus;
 
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.szbm.wh.x.bmlogg.R;
 import com.szbm.wh.x.bmlogg.databinding.LoginActivity2FragmentBinding;
 import com.szbm.wh.x.bmlogg.databinding.ProjectFragmentBinding;
@@ -32,6 +28,7 @@ import com.szbm.wh.x.bmlogg.pojo.Status;
 import com.szbm.wh.x.bmlogg.ui.common.InjectFragment;
 import com.szbm.wh.x.bmlogg.ui.ui.main.MainReceiver;
 import com.szbm.wh.x.bmlogg.vo.BH_Logger;
+import com.szbm.wh.x.bmlogg.vo.ProjectInfo;
 import com.szbm.wh.x.bmlogg.worker.Constants;
 import com.szbm.wh.x.bmlogg.worker.DBDownloadOperation;
 
@@ -44,10 +41,11 @@ public class ProjectFragment extends InjectFragment {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
 
-
     ProjectFragmentBinding binding;
 
     private ProjectViewModel mViewModel;
+    private MaterialDialog materialDialog;
+
 
     public static ProjectFragment newInstance() {
         return new ProjectFragment();
@@ -66,39 +64,98 @@ public class ProjectFragment extends InjectFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this,viewModelFactory).get(ProjectViewModel.class);
-        mViewModel.loadCurrent();
-        mViewModel.loadLocalDb();
 
-        mViewModel.resourceMediatorLiveData.observe(this,observer->{
-            binding.setResource(observer);
-            if(observer.getData() != null)
-            {
-                ProjectAdapter projectAdapter = new ProjectAdapter(
-                        getActivity(),
-                        mViewModel.current.getValue(),
-                        observer.getData(),project_id ->
-                {
-                    mViewModel.setCurrent(project_id);
-                    binding.setProject(mViewModel.current.getValue());
-                });
-                binding.projectRecyclerView.setAdapter(projectAdapter);
+        materialDialog =  new MaterialDialog.Builder(getContext())
+                .title("我的项目")
+                .content("同步项目中的数据")
+                .progress(true,0,false)
+                .canceledOnTouchOutside(false)
+                .keyListener((dialog, keyCode, event) -> {
+                    if(keyCode == KeyEvent.KEYCODE_BACK&&event.getRepeatCount()==0)
+                        return true;
+                    else
+                        return false;
+                })
+                .build();
+        //工程列表
+        ProjectAdapter projectAdapter = new ProjectAdapter(
+                new ProjectAdapter.DiffCallbackBuilder(),listener->{
+                materialDialog.show();
+                //关联
+                mViewModel.releation.setValue(listener);
+        });
+        binding.projectRecyclerView.setAdapter(projectAdapter);
+
+        mViewModel.diskResult.get().observe(this,projectInfos -> {
+            if(projectInfos == null|| projectInfos.size() == 0){
+                new MaterialDialog.Builder(getActivity())
+                        .title("我的项目")
+                        .content("没有发现缓存项目，是否从网络加载？")
+                        .positiveText("确定")
+                        .negativeText("取消")
+                        .onPositive(((dialog, which) -> {
+                            mViewModel.loadFromNetWork();
+                        }))
+                        .onNegative(((dialog, which) -> {
+
+                        }))
+                        .build()
+                        .show();
             }
+            else{
+                projectAdapter.submitList(projectInfos);
+            }
+            mViewModel.diskResult.get().removeObservers(this);
         });
 
-        mViewModel.current.observe(this,observer-> binding.setProject(observer));
-        this.onWorker();
+        //下载工程
+        mViewModel.projectBoreholesLiveData.observe(this,
+                resource -> {
+                    binding.setResource(resource);
+                    if(resource.getStatus()== Status.SUCCESS
+                            || resource.getStatus() == Status.ERROR){
+                        materialDialog.dismiss();
+                    }
+                    if(resource.getData() != null){
+                        mViewModel.setCurrent(resource.getData().getIid());
+                        mViewModel.loadCurrent();
+                    }
+                });
 
-        binding.projectFloatingActionButton.setOnClickListener( v-> mViewModel.loadFromNetWork());
-        binding.setCallback(()->mViewModel.loadFromNetWork());
+        mViewModel.result.observe(this,
+                pagedListResource -> {
+                    binding.setResource(pagedListResource);
+                    if(pagedListResource != null){
+                        switch (pagedListResource.getStatus()){
+                            case LOADING:
+                                break;
+                            case SUCCESS:
+                            case ERROR:
+                                binding.setCallback(()->mViewModel.loadFromNetWork());
+                                binding.swipeRefresh.setRefreshing(false);
+                                break;
+                        }
+                    }
+                });
+
+        binding.swipeRefresh.setOnRefreshListener(()->mViewModel.loadFromNetWork()
+        );
+
+        //当前项目
+        mViewModel.current.observe(this,observer->
+            binding.setProject(observer)
+        );
+        mViewModel.loadCurrent();
+
+        this.onWorker();
         binding.setDownloadListener((v)->{
             DBDownloadOperation imageOperations = new
-                    DBDownloadOperation.Builder(mViewModel.current.getValue().getIid())
+                    DBDownloadOperation.Builder(mViewModel.current.getValue().getIid(),
+                    mViewModel.bh_logger.getNumber())
                     .build();
 
             mViewModel.apply(imageOperations);
         });
-
-
     }
 
     private void onWorker(){

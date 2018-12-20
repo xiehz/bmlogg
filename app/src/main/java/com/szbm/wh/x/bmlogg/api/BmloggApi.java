@@ -41,12 +41,12 @@ public class BmloggApi {
 
     private BmloggApi() {
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10,TimeUnit.SECONDS)
-                .writeTimeout(10,TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60,TimeUnit.SECONDS)
+                .writeTimeout(60,TimeUnit.SECONDS)
                 .build();
         bmloggService = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.106/bmlgser/api/")
+                .baseUrl("http://192.168.1.7/bmlgser/api/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(new LiveDataCallAdapterFactory())

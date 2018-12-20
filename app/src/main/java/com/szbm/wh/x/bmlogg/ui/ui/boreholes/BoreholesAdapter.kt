@@ -20,8 +20,8 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
-import com.szbm.wh.x.bmlogg.GlideRequests
 import com.szbm.wh.x.bmlogg.R
+import com.szbm.wh.x.bmlogg.generated.callback.OnClickListener
 import com.szbm.wh.x.bmlogg.page.NetworkState
 import com.szbm.wh.x.bmlogg.vo.BH_BoreholeInfo
 
@@ -29,8 +29,8 @@ import com.szbm.wh.x.bmlogg.vo.BH_BoreholeInfo
  * A simple adapter implementation that shows Reddit posts.
  */
 class BoreholesAdapter(
-        private val glide: GlideRequests,
-        private val retryCallback: () -> Unit)
+        private val retryCallback: () -> Unit,
+        private val clickListener: ((bh_BoreholeInfo:BH_BoreholeInfo?)->Unit)?)
     : PagedListAdapter<BH_BoreholeInfo, RecyclerView.ViewHolder>(BOREHOLE_COMPARATOR) {
     private var networkState: NetworkState? = null
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -55,7 +55,7 @@ class BoreholesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            R.layout.borehole_item -> BoreholeViewHolder.create(parent)
+            R.layout.borehole_item -> BoreholeViewHolder.create(parent,clickListener)
             R.layout.network_state_item -> NetworkStateItemViewHolder.create(parent, retryCallback)
             else -> throw IllegalArgumentException("unknown view type $viewType")
         }

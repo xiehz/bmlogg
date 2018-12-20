@@ -7,7 +7,8 @@ import androidx.room.Entity
     primaryKeys = ["number"]
 )
 data class BH_Logger (
-        var number :Int,
+        var number :Long,
         var tel :String,
-        var pass: String
+        var pass: String,
+        var url:String?
 )

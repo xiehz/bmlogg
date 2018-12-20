@@ -6,9 +6,9 @@ data class Re_ts_sptdata
 (
         var tsext_spt_info :List<Re_tsext_spt_info>?,
 
-        var iid :Int,
+        var iid :Long,
 
-        var spt_id :Int,
+        var spt_id :Long,
 
         var begin_depth :Float?,
 
@@ -24,8 +24,8 @@ data class Re_ts_sptdata
 )
 {
     companion object {
-        fun converTo(re_ts_sptdata: Re_ts_sptdata):ts_sptdata{
-            return ts_sptdata(
+        fun converTo(re_ts_sptdata: Re_ts_sptdata):Ts_sptdata{
+            return Ts_sptdata(
                     re_ts_sptdata.iid ,
                     re_ts_sptdata.spt_id,
                     re_ts_sptdata.begin_depth,
@@ -36,7 +36,7 @@ data class Re_ts_sptdata
                     re_ts_sptdata.ignore
             )
         }
-        fun from(ts_sptdata: ts_sptdata,
+        fun from(ts_sptdata: Ts_sptdata,
                  tsext_spt_info :List<Re_tsext_spt_info>?):Re_ts_sptdata{
             return Re_ts_sptdata(
                     tsext_spt_info,

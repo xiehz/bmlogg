@@ -20,5 +20,17 @@ interface BH_CoreCatalogDao{
     fun selectAll(): LiveData<List<BH_CoreCatalog>>
 
     @Query("SELECT * FROM BH_CoreCatalog WHERE iid = :iid")
-    fun select(iid:Int): LiveData<BH_CoreCatalog>
+    fun select(iid:Long): LiveData<BH_CoreCatalog>
+
+    @Query("SELECT MAX(iid) FROM BH_CoreCatalog")
+    fun selectMaxWithoutLife(): Long
+
+    @Query("SELECT * FROM BH_CoreCatalog WHERE borehole_id = :borehole ORDER BY depth")
+    fun selectByBorehole(borehole:Long): LiveData<List<BH_CoreCatalog>>
+
+    @Query("DELETE FROM BH_CoreCatalog WHERE iid = :iid")
+    fun delete(iid:Long)
+
+    @Query("SELECT * FROM BH_CoreCatalog WHERE iid = :iid")
+    fun selectWithoutLive(iid:Long): BH_CoreCatalog
 }

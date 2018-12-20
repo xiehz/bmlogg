@@ -20,9 +20,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.szbm.wh.x.bmlogg.R;
 import com.szbm.wh.x.bmlogg.databinding.MainFragmentBinding;
 import com.szbm.wh.x.bmlogg.di.Injectable;
+import com.szbm.wh.x.bmlogg.pojo.MainProjectInfo;
 import com.szbm.wh.x.bmlogg.pojo.Resource;
 import com.szbm.wh.x.bmlogg.pojo.Status;
 import com.szbm.wh.x.bmlogg.ui.common.InjectFragment;
+import com.szbm.wh.x.bmlogg.vo.ProjectInfo;
 
 import javax.inject.Inject;
 
@@ -32,8 +34,6 @@ public class MainFragment extends InjectFragment {
     ViewModelProvider.Factory viewModelFactory;
     private MainViewModel mViewModel;
     MainFragmentBinding binding;
-    ProjectTreeView projectTreeView;
-    MainReceiver mainReceiver;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -51,52 +51,40 @@ public class MainFragment extends InjectFragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this,viewModelFactory).get(MainViewModel.class);
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+        refreshProject();
 
-        projectTreeView = new ProjectTreeView(getActivity());
-        projectTreeView.setLayoutParams(layoutParams);
-        projectTreeView.setOrientation(LinearLayout.VERTICAL);
-        binding.projectTree.addView(projectTreeView);
+        mViewModel.projectInfoResource.observe(this, projectInfo -> {
+            binding.setInfo(projectInfo);
+        });
+        mViewModel.boreholeCountResource.observe(this, integerResource -> {
+            binding.setResource(integerResource);
+            binding.setCallback(()->refreshProject());
 
-        mViewModel.projectTreeAdapterLiveData
-        .observe(this,resource ->
-        {
-            binding.setResource(resource);
-            binding.setCallback(()->mViewModel.getProject());
-
-            if(resource!=null && resource.getStatus()== Status.SUCCESS)
+            if(integerResource.getStatus() == Status.SUCCESS || integerResource.getStatus() == Status.ERROR)
             {
-                if(resource !=null&&resource.getData() != null)
-                {
-                    projectTreeView.setAdapter(resource.getData());
-                    binding.setProject(mViewModel.projectInfoMutableLiveData.getValue());
+                binding.swipeRefresh.setRefreshing(false);
+                if(integerResource.getData() != null){
+                    binding.setBoreholes(integerResource.getData());
                     binding.setShowEntry(true);
                     binding.floatingActionButton.setOnClickListener((v)->{
-                        mViewModel.saveProject(projectTreeView.adater);
+                        Navigation.findNavController(binding.getRoot()).navigate(
+                                R.id.action_mainFragment_to_boreholesActivity);
                     });
-
                 }
-                else
+                else{
                     binding.setShowEntry(false);
-            }
-            else
-                binding.setShowEntry(false);
-        });
-        mViewModel.projectInfoMutableLiveData.observe(this,projectInfo -> binding.setProject(projectInfo));
-        mViewModel.saved.observe(this,stringResource -> {
-            binding.setResource(stringResource);
-            binding.setCallback(()->mViewModel.saveProject(projectTreeView.adater));
-            if(stringResource.getStatus() == Status.SUCCESS){
-//                Snackbar.make()
-                Navigation.findNavController(binding.getRoot()).navigate(
-                        R.id.action_mainFragment_to_boreholesActivity);
+                }
             }
         });
-        mViewModel.getProject();
+
+        binding.swipeRefresh.setOnRefreshListener(
+                ()-> refreshProject()
+        );
     }
 
+    private void refreshProject(){
+        mViewModel.projectLiveData.setValue(mViewModel.loadCurrent());
+    }
     @Override
     public void onResume() {
         super.onResume();

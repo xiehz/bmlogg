@@ -6,9 +6,8 @@ import com.szbm.wh.x.bmlogg.api.BmloggApi;
 import com.szbm.wh.x.bmlogg.db.BmLoggDb;
 import com.szbm.wh.x.bmlogg.pojo.Re_Project;
 import com.szbm.wh.x.bmlogg.vo.C_PubDic;
-import com.szbm.wh.x.bmlogg.vo.c_stratum_ext;
+import com.szbm.wh.x.bmlogg.vo.C_stratum_ext;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -28,12 +27,12 @@ public class ProjectWorker extends Worker {
     @Override
     public Result doWork() {
         Data args = getInputData();
-        int project = args.getInt(Constants.DATA_KEY,-1);
+        int project = args.getInt(Constants.DATA_PROJECT_KEY,-1);
 
         try {
             Re_Project re_project = fetchProject(project);
             List<C_PubDic> c_pubDics = fetchC_PubDic();
-            List<c_stratum_ext> c_stratum_exts = fetchc_stratum_ext();
+            List<C_stratum_ext> c_stratum_exts = fetchc_stratum_ext();
 
             insert(re_project,c_pubDics,c_stratum_exts);
         }catch (Exception ie)
@@ -74,13 +73,13 @@ public class ProjectWorker extends Worker {
         }
     }
 
-    private List<c_stratum_ext> fetchc_stratum_ext()throws Exception{
-        Call<List<c_stratum_ext>> infoCall = BmloggApi
+    private List<C_stratum_ext> fetchc_stratum_ext()throws Exception{
+        Call<List<C_stratum_ext>> infoCall = BmloggApi
                 .getInstance()
                 .getBmloggService()
                 .getc_stratum_extWorker();
 
-        Response<List<c_stratum_ext>> response = infoCall.execute();
+        Response<List<C_stratum_ext>> response = infoCall.execute();
 
         if (response.isSuccessful()) {
             return response.body();
@@ -89,7 +88,7 @@ public class ProjectWorker extends Worker {
         }
     }
 
-    private void insert(Re_Project re_project, List<C_PubDic> c_pubDics, List<c_stratum_ext> c_stratum_exts)
+    private void insert(Re_Project re_project, List<C_PubDic> c_pubDics, List<C_stratum_ext> c_stratum_exts)
     {
         BmLoggDb bmLoggDb = BmLoggDb.Companion.getInstance(getApplicationContext());
         bmLoggDb.beginTransaction();

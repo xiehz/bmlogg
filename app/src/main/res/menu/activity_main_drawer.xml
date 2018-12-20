@@ -7,11 +7,11 @@
         <item
             android:id="@id/projectFragment"
             android:icon="@drawable/ic_menu_camera"
-            android:title="项目" />
+            android:title="我的项目" />
         <item
             android:id="@id/mainFragment"
             android:icon="@drawable/ic_menu_camera"
-            android:title="编录" />
+            android:title="我的钻孔" />
         <item
             android:id="@id/statisticFragment"
             android:icon="@drawable/ic_menu_gallery"

@@ -13,13 +13,13 @@ import androidx.room.PrimaryKey
 data class SampleRecord
 (
         @PrimaryKey
-        var iid :Int,
+        var iid :Long,
 
-        var project_id :Int,
+        var project_id :Long,
 
         var belong_type :Int,
 
-        var belong_iid :Int,
+        var belong_iid :Long,
 
         var sample_code :String?,
 
@@ -29,3 +29,6 @@ data class SampleRecord
 
         var sample_type:Int?
 )
+{
+        var from_server:Int? = 0 // 默认从服务器上来 <>0 则是本地新建
+}

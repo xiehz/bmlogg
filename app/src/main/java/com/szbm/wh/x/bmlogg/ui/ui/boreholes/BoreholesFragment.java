@@ -1,5 +1,6 @@
 package com.szbm.wh.x.bmlogg.ui.ui.boreholes;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -8,20 +9,27 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 import kotlin.Unit;
 
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 
-import com.szbm.wh.x.bmlogg.GlideApp;
-import com.szbm.wh.x.bmlogg.GlideRequests;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.szbm.wh.x.bmlogg.R;
 import com.szbm.wh.x.bmlogg.databinding.BoreholesFragmentBinding;
 import com.szbm.wh.x.bmlogg.page.Status;
+import com.szbm.wh.x.bmlogg.ui.BhActivityArgs;
 import com.szbm.wh.x.bmlogg.ui.common.InjectFragment;
+import com.szbm.wh.x.bmlogg.util.StringPreder;
 
 import javax.inject.Inject;
 
@@ -41,6 +49,7 @@ public class BoreholesFragment extends InjectFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         boreholesFragmentBinding =DataBindingUtil.inflate(inflater,R.layout.boreholes_fragment, container, false);
         return boreholesFragmentBinding.getRoot();
     }
@@ -50,19 +59,29 @@ public class BoreholesFragment extends InjectFragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this,viewModelFactory).get(BoreholesViewModel.class);
 
+        mViewModel.current.observe(this,projectInfo -> {
+            if(projectInfo != null)
+                mViewModel.showBorehole(null);
+        });
         initAdapter();
         initSwipeToRefresh();
-        initSearch();
-
-        mViewModel.showSubreddit(null);
+        mViewModel.makeCurrent();
     }
 
     private void initAdapter() {
-        GlideRequests glide = GlideApp.with(this);
-        BoreholesAdapter adapter = new BoreholesAdapter(glide,()->{
+        BoreholesAdapter adapter = new BoreholesAdapter(()->{
             mViewModel.retry();
             return Unit.INSTANCE;
-        });
+        },(bh_boreholeInfo -> {
+            BhActivityArgs args = new BhActivityArgs
+                    .Builder(bh_boreholeInfo.getCode())
+                    .setComSzbmWhXBmloggUiBhIid(bh_boreholeInfo.getIid())
+                    .build();
+            Navigation.findNavController(boreholesFragmentBinding.getRoot()).navigate(
+                    R.id.action_boreholesFragment_to_bhActivity,args.toBundle()
+            );
+            return Unit.INSTANCE;
+        }));
 
         boreholesFragmentBinding.list.setAdapter(adapter);
         mViewModel.posts.observe(this,
@@ -82,34 +101,49 @@ public class BoreholesFragment extends InjectFragment {
         });
     }
 
-    private void initSearch() {
-        boreholesFragmentBinding.input.setOnEditorActionListener((v,actionId,event)->{
-            if(actionId == EditorInfo.IME_ACTION_GO){
-                updatedSubredditFromInput();
-                return true;
-            }else{
-                return false;
-            }
-        });
-
-        boreholesFragmentBinding.input.setOnKeyListener((v,keyCode,event)->{
-            if(event.getAction() == KeyEvent.ACTION_DOWN&& keyCode == KeyEvent.KEYCODE_ENTER){
-                updatedSubredditFromInput();
-                return true;
-            }else{
-                return false;
-            }
-        });
-    }
-
-    private void updatedSubredditFromInput() {
-        if(boreholesFragmentBinding.input.getText() !=null){
-            String input = boreholesFragmentBinding.input.getText().toString().trim();
-            if(mViewModel.showSubreddit(input)){
-                boreholesFragmentBinding.list.scrollToPosition(0);
-                ((BoreholesAdapter) boreholesFragmentBinding.list.getAdapter()).submitList(null);
-            }
+    private void updatedBoreholeFromInput(String text) {
+        String input =text == null? null: text.trim();
+        if(mViewModel.showBorehole(input)){
+            boreholesFragmentBinding.list.scrollToPosition(0);
+            ((BoreholesAdapter) boreholesFragmentBinding.list.getAdapter()).submitList(null);
         }
     }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.boreholes_menu,menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search_view);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setInputType(InputType.TYPE_CLASS_NUMBER);
+        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnCloseListener(()->{
+            updatedBoreholeFromInput(null);
+            searchView.clearFocus();
+            searchView.onActionViewCollapsed();
+            return true;
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                updatedBoreholeFromInput(query);
+                return true;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        searchView.setQueryHint("请输入钻孔名");
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_search_view:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

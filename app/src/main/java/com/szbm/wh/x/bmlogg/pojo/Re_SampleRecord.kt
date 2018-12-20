@@ -2,15 +2,15 @@ package com.szbm.wh.x.bmlogg.vo
 
 data class Re_SampleRecord
 (
-        var bhext_sampling_info :List<bhext_sampling_info>?,
+        var bhext_sampling_info :List<Bhext_sampling_info>?,
 
-        var iid :Int,
+        var iid :Long,
 
-        var project_id :Int,
+        var project_id :Long,
 
         var belong_type :Int,
 
-        var belong_iid :Int,
+        var belong_iid :Long,
 
         var sample_code :String?,
 
@@ -35,7 +35,7 @@ data class Re_SampleRecord
             )
         }
         fun from(sampleRecord: SampleRecord,
-                 bhext_sampling_info: List<bhext_sampling_info>?):Re_SampleRecord{
+                 bhext_sampling_info: List<Bhext_sampling_info>?):Re_SampleRecord{
             return Re_SampleRecord(
                     bhext_sampling_info,
                     sampleRecord.iid ,
